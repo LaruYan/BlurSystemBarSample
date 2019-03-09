@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
 
     private byte fullScreenFlags; // 전체화면 플래그를 기억할 변수
     private View vwDummyStatusBar;
+    private View vwDummyToolBar;
+    private View vwDummyToolBarBottom;
     private View vwDummyNavBarPort;
     private View vwDummyNavBarLandLeft;
     private View vwDummyNavBarLandRight;
@@ -26,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
     private ScrollView contentView;
     private View safeArea;
 
+    private View[] vwStatusBarAffecteds = {toolbar,contentView};
+    private View[] vwNavBarAffecteds = {contentView};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         vwDummyStatusBar = findViewById(R.id.vw_dummy_statusBar);
+        vwDummyToolBar = findViewById(R.id.vw_dummy_toolbar);
+        vwDummyToolBarBottom = findViewById(R.id.vw_dummy_toolbar_bottom);
         vwDummyNavBarPort = findViewById(R.id.vw_dummy_navBarPort);
         vwDummyNavBarLandLeft = findViewById(R.id.vw_dummy_navBarLandLeft);
         vwDummyNavBarLandRight = findViewById(R.id.vw_dummy_navBarLandRight);
@@ -59,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle(R.string.app_name);
         toolbar.setTitleTextColor(ContextCompat.getColor(MainActivity.this, android.R.color.white));
 
+        vwStatusBarAffecteds = new View[] {toolbar,contentView};
+        vwNavBarAffecteds =  new View[] {contentView};
 
         // 전체화면 활용 처리
         toolbar.setOnSystemUiVisibilityChangeListener(visibility -> setFullScreenMode((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) );
@@ -76,10 +85,10 @@ public class MainActivity extends AppCompatActivity {
         toolbar.post(() -> fullScreenFlags = VisibleEstatesUtil.setFullScreenMode(
                 MainActivity.this,
                 isStatusBarVisible,
-                null,
+                drawer,
                 toolbar.getHeight(),
-                null,
-                null,
+                vwDummyToolBar,
+                vwDummyToolBarBottom,
                 vwDummyStatusBar,
                 ContextCompat.getColor(MainActivity.this, R.color.colorPrimary),
                 vwDummyNavBarPort,
