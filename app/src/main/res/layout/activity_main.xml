@@ -20,6 +20,7 @@
             android:layout_below="@id/vw_dummy_statusBar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:background="#aa000000"
     />
     <View
             android:visibility="gone"
@@ -28,6 +29,7 @@
             android:layout_below="@id/vw_dummy_statusBar"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:background="#aaffffff"
     />
     <View
         android:visibility="gone"

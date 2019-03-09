@@ -227,11 +227,15 @@ public class VisibleEstatesUtil {
             ViewGroup.MarginLayoutParams rlpTlbDummy = null;
             if (vwToolbarDummy != null) {
                 rlpTlbDummy = (ViewGroup.MarginLayoutParams) vwToolbarDummy.getLayoutParams();
+                rlpTlbDummy.height = toolbarHeight;
             }
             ViewGroup.MarginLayoutParams rlpVwBottomDummy = null;
             if (vwMainToolbarBottomDummy != null) {
                 rlpVwBottomDummy = (ViewGroup.MarginLayoutParams) vwMainToolbarBottomDummy.getLayoutParams();
+                rlpVwBottomDummy.height = toolbarHeight;
             }
+
+
             ViewGroup.MarginLayoutParams[] rlpNavBarAffecteds = new ViewGroup.MarginLayoutParams[(vwNavBarAffecteds != null) ? vwNavBarAffecteds.length : 0];
             for (int cur = 0; cur < rlpNavBarAffecteds.length; cur++) {
                 rlpNavBarAffecteds[cur] = (ViewGroup.MarginLayoutParams) vwNavBarAffecteds[cur].getLayoutParams();
