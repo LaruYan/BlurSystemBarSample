@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 흐림효과 처리
         //https://github.com/Dimezis/BlurView
-        float radius = 20f;
+        float radius = 5f;
         View decorView = getWindow().getDecorView();
         //ViewGroup you want to start blur from. Choose root as close to BlurView in hierarchy as possible.
         ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
