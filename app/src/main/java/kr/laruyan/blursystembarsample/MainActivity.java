@@ -11,15 +11,16 @@ import android.widget.ScrollView;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import io.alterac.blurkit.BlurLayout;
 
 public class MainActivity extends AppCompatActivity {
 
     private byte fullScreenFlags; // 전체화면 플래그를 기억할 변수
-    private View vwDummyStatusBar;
-    private View vwDummyToolBar;
-    private View vwDummyNavBarPort;
-    private View vwDummyNavBarLandLeft;
-    private View vwDummyNavBarLandRight;
+    private BlurLayout vwDummyStatusBar;
+    private BlurLayout vwDummyToolBar;
+    private BlurLayout vwDummyNavBarPort;
+    private BlurLayout vwDummyNavBarLandLeft;
+    private BlurLayout vwDummyNavBarLandRight;
 
 
     private Toolbar toolbar;
@@ -72,6 +73,28 @@ public class MainActivity extends AppCompatActivity {
         setFullScreenMode(true);
 
         toolbar.post(()->VisibleEstatesUtil.setScrollableTransparentPaddings(MainActivity.this,safeArea,new View[]{contentView}, toolbar));
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        vwDummyStatusBar.startBlur();
+        vwDummyToolBar.startBlur();
+        vwDummyNavBarPort.startBlur();
+        vwDummyNavBarLandLeft.startBlur();
+        vwDummyNavBarLandRight.startBlur();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        vwDummyStatusBar.pauseBlur();
+        vwDummyToolBar.pauseBlur();
+        vwDummyNavBarPort.pauseBlur();
+        vwDummyNavBarLandLeft.pauseBlur();
+        vwDummyNavBarLandRight.pauseBlur();
     }
 
     @Override

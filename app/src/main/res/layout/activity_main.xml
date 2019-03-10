@@ -1,39 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="kr.laruyan.blursystembarsample.MainActivity">
+                xmlns:blurkit="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context="kr.laruyan.blursystembarsample.MainActivity">
 
-    <View
+    <io.alterac.blurkit.BlurLayout
         android:visibility="gone"
         android:layout_alignParentTop="true"
         android:id="@+id/vw_dummy_statusBar"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        blurkit:blk_blurRadius="12"
+        blurkit:blk_downscaleFactor="0.12"
     />
-    <View
+    <io.alterac.blurkit.BlurLayout
         android:visibility="gone"
         android:id="@+id/vw_dummy_navBarPort"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_alignParentBottom="true"
+        blurkit:blk_blurRadius="12"
+        blurkit:blk_downscaleFactor="0.12"
         />
-    <View
+    <io.alterac.blurkit.BlurLayout
         android:visibility="gone"
         android:id="@+id/vw_dummy_navBarLandLeft"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
+        blurkit:blk_blurRadius="12"
+        blurkit:blk_downscaleFactor="0.12"
         />
 
-    <View
+    <io.alterac.blurkit.BlurLayout
         android:visibility="gone"
         android:id="@+id/vw_dummy_navBarLandRight"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
+        blurkit:blk_blurRadius="12"
+        blurkit:blk_downscaleFactor="0.12"
         />
 
     <View android:id="@+id/safe_area"
@@ -56,14 +64,17 @@
             android:text="가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이"/>
     </ScrollView>
 
-    <View
+    <io.alterac.blurkit.BlurLayout
             android:visibility="visible"
             android:id="@+id/vw_dummy_toolbar"
             android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:background="#aa000000"
+            blurkit:blk_blurRadius="12"
+            blurkit:blk_downscaleFactor="0.12"
     />
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
