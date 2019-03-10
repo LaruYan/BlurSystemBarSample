@@ -227,12 +227,10 @@ public class VisibleEstatesUtil {
             ViewGroup.MarginLayoutParams rlpTlbDummy = null;
             if (vwToolbarDummy != null) {
                 rlpTlbDummy = (ViewGroup.MarginLayoutParams) vwToolbarDummy.getLayoutParams();
-                //rlpTlbDummy.height = toolbarHeight;
             }
             ViewGroup.MarginLayoutParams rlpVwBottomDummy = null;
             if (vwMainToolbarBottomDummy != null) {
                 rlpVwBottomDummy = (ViewGroup.MarginLayoutParams) vwMainToolbarBottomDummy.getLayoutParams();
-                //rlpVwBottomDummy.height = toolbarHeight;
             }
 
 

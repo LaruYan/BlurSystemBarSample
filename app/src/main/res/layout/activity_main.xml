@@ -64,14 +64,6 @@
             android:layout_height="?android:attr/actionBarSize"
             android:background="#aa000000"
     />
-    <View
-            android:visibility="visible"
-            android:id="@+id/vw_dummy_toolbar_bottom"
-            android:layout_alignParentTop="true"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:background="#aaffffff"
-    />
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"

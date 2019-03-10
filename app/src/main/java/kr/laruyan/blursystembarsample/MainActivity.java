@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                 drawer,
                 toolbar.getHeight(),
                 vwDummyToolBar,
-                vwDummyToolBarBottom,
+                null,
                 vwDummyStatusBar,
                 ContextCompat.getColor(MainActivity.this, R.color.colorPrimary),
                 vwDummyNavBarPort,
