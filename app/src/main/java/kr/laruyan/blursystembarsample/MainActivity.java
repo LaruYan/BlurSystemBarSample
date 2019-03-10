@@ -110,20 +110,29 @@ public class MainActivity extends AppCompatActivity {
 
         // 흐림효과 처리
         //  width / height 0인 뷰는 강제종료를 유발
-        blurWorkerUpper = Dali.create(MainActivity.this).liveBlur(null,blDummyStatusBar,blDummyToolBar,blDummyNavBarPort).downScale(2).assemble(true);
+        blurWorkerUpper = Dali.create(MainActivity.this).liveBlur(contentView,blDummyStatusBar,blDummyToolBar).downScale(8).assemble(true);
+        blurWorkerDowner = Dali.create(MainActivity.this).liveBlur(contentView,blDummyNavBarPort).downScale(8).assemble(true);
 
-        threadWorker = new Thread(new Runnable(){
+        contentView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
             @Override
-            public void run() {
-                while(isBlurDaemon) {
-                    if(isBlurRequired) {
-                        runOnUiThread(()->{blurWorkerUpper.updateBlurView();});
-                    }
-                    android.os.SystemClock.sleep(16);
-                }
+            public void onScrollChanged() {
+                blurWorkerUpper.updateBlurView();
+                blurWorkerDowner.updateBlurView();
+
             }
         });
-        threadWorker.start();
+//        threadWorker = new Thread(new Runnable(){
+//            @Override
+//            public void run() {
+//                while(isBlurDaemon) {
+//                    if(isBlurRequired) {
+//                        runOnUiThread(()->{blurWorkerUpper.updateBlurView();});
+//                    }
+//                    android.os.SystemClock.sleep(16);
+//                }
+//            }
+//        });
+//        threadWorker.start();
 
         // 전체화면 활용 처리
         toolbar.setOnSystemUiVisibilityChangeListener(visibility -> setFullScreenMode((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) );
