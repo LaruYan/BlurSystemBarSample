@@ -548,7 +548,7 @@ public class VisibleEstatesUtil {
         return rememberResetStatus;
     }
 
-    public static void setScrollableTransparentPaddings(final Activity atv, View parentView, final View[] listViews, final boolean scrollDirectionIsVertical){
+    public static void setScrollableTransparentPaddings(final Activity atv, View parentView, final View[] listViews, final boolean scrollDirectionIsVertical, final int actionBarHeight){
         parentView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
@@ -597,7 +597,7 @@ public class VisibleEstatesUtil {
 //                            } else if (listView instanceof WebView) {
 //                                ((WebView) listView).setClipToPadding(scrollDirectionIsVertical);
 //                            }
-                            listView.setPadding(0, statusBarSize, navBarSize.x, 0);
+                            listView.setPadding(0, statusBarSize+actionBarHeight, navBarSize.x, 0);
                         }else{
                             if (listView instanceof ListView) {
                                 ((ListView) listView).setClipToPadding(!scrollDirectionIsVertical);
@@ -611,7 +611,7 @@ public class VisibleEstatesUtil {
 //                            } else if (listView instanceof WebView) {
 //                                ((WebView) listView).setClipToPadding(!scrollDirectionIsVertical);
 //                            }
-                            listView.setPadding(0, statusBarSize, 0, navBarSize.y);
+                            listView.setPadding(0, statusBarSize+actionBarHeight, 0, navBarSize.y);
                         }
                     }
                 }

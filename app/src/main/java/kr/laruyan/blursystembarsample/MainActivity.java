@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         // 전체화면 활용 처리
         toolbar.setOnSystemUiVisibilityChangeListener(visibility -> setFullScreenMode((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) );
         setFullScreenMode(true);
-        VisibleEstatesUtil.setScrollableTransparentPaddings(MainActivity.this,safeArea,new View[]{contentView},true);
+        VisibleEstatesUtil.setScrollableTransparentPaddings(MainActivity.this,safeArea,new View[]{contentView},true, toolbar.getHeight());
     }
 
     @Override
