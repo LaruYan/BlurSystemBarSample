@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setOnSystemUiVisibilityChangeListener(visibility -> setFullScreenMode((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) );
         setFullScreenMode(true);
 
-        toolbar.post(()->VisibleEstatesUtil.setScrollableTransparentPaddings(MainActivity.this,safeArea,new View[]{contentView}, toolbar.getHeight()));
+        toolbar.post(()->VisibleEstatesUtil.setScrollableTransparentPaddings(MainActivity.this,safeArea,new View[]{contentView}, toolbar));
     }
 
     @Override

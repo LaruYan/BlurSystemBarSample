@@ -549,7 +549,7 @@ public class VisibleEstatesUtil {
         return rememberResetStatus;
     }
 
-    public static void setScrollableTransparentPaddings(final Activity atv, View parentView, final View[] listViews, final boolean scrollDirectionIsVertical, final int actionBarHeight){
+    public static void setScrollableTransparentPaddings(final Activity atv, View parentView, final View[] listViews, View actionBarItself){
         parentView.addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
             @Override
             public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft, int oldTop, int oldRight, int oldBottom) {
@@ -571,6 +571,8 @@ public class VisibleEstatesUtil {
 
                 if (isNeedForRelayout) {
                     int statusBarSize = VisibleEstatesUtil.getStatusBarSize(atv,true);
+
+                    int actionBarHeight = actionBarItself.getHeight();
 
                     Point navBarSize = VisibleEstatesUtil.getNavigationBarSize(atv);
                     boolean isLandscape = false;
