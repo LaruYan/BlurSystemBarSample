@@ -16,11 +16,16 @@ import io.alterac.blurkit.BlurLayout;
 public class MainActivity extends AppCompatActivity {
 
     private byte fullScreenFlags; // 전체화면 플래그를 기억할 변수
-    private BlurLayout vwDummyStatusBar;
-    private BlurLayout vwDummyToolBar;
-    private BlurLayout vwDummyNavBarPort;
-    private BlurLayout vwDummyNavBarLandLeft;
-    private BlurLayout vwDummyNavBarLandRight;
+    private BlurLayout blDummyStatusBar;
+    private BlurLayout blDummyToolBar;
+    private BlurLayout blDummyNavBarPort;
+    private BlurLayout blDummyNavBarLandLeft;
+    private BlurLayout blDummyNavBarLandRight;
+    private View vwDummyStatusBar;
+    private View vwDummyToolBar;
+    private View vwDummyNavBarPort;
+    private View vwDummyNavBarLandLeft;
+    private View vwDummyNavBarLandRight;
 
 
     private Toolbar toolbar;
@@ -28,8 +33,14 @@ public class MainActivity extends AppCompatActivity {
     private ScrollView contentView;
     private View safeArea;
 
-    private View[] vwStatusBarAffecteds = {toolbar,contentView};
-    private View[] vwNavBarAffecteds = {contentView};
+    private View[] vwDummyStatusBars;
+    private View[] vwDummyToolBars;
+    private View[] vwDummyNavBarPorts;
+    private View[] vwDummyNavBarLandLefts;
+    private View[] vwDummyNavBarLandRights;
+
+    private View[] vwStatusBarAffecteds;
+    private View[] vwNavBarAffecteds;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +48,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        blDummyStatusBar = findViewById(R.id.bl_dummy_statusBar);
+        blDummyToolBar = findViewById(R.id.bl_dummy_toolbar);
+        blDummyNavBarPort = findViewById(R.id.bl_dummy_navBarPort);
+        blDummyNavBarLandLeft = findViewById(R.id.bl_dummy_navBarLandLeft);
+        blDummyNavBarLandRight = findViewById(R.id.bl_dummy_navBarLandRight);
+
         vwDummyStatusBar = findViewById(R.id.vw_dummy_statusBar);
         vwDummyToolBar = findViewById(R.id.vw_dummy_toolbar);
         vwDummyNavBarPort = findViewById(R.id.vw_dummy_navBarPort);
@@ -79,22 +97,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        vwDummyStatusBar.startBlur();
-        vwDummyToolBar.startBlur();
-        vwDummyNavBarPort.startBlur();
-        vwDummyNavBarLandLeft.startBlur();
-        vwDummyNavBarLandRight.startBlur();
+        blDummyStatusBar.startBlur();
+        blDummyToolBar.startBlur();
+        blDummyNavBarPort.startBlur();
+        blDummyNavBarLandLeft.startBlur();
+        blDummyNavBarLandRight.startBlur();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
 
-        vwDummyStatusBar.pauseBlur();
-        vwDummyToolBar.pauseBlur();
-        vwDummyNavBarPort.pauseBlur();
-        vwDummyNavBarLandLeft.pauseBlur();
-        vwDummyNavBarLandRight.pauseBlur();
+        blDummyStatusBar.pauseBlur();
+        blDummyToolBar.pauseBlur();
+        blDummyNavBarPort.pauseBlur();
+        blDummyNavBarLandLeft.pauseBlur();
+        blDummyNavBarLandRight.pauseBlur();
     }
 
     @Override

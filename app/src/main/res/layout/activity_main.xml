@@ -7,42 +7,70 @@
                 tools:context="kr.laruyan.blursystembarsample.MainActivity">
 
     <io.alterac.blurkit.BlurLayout
-        android:visibility="gone"
-        android:layout_alignParentTop="true"
-        android:id="@+id/vw_dummy_statusBar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        blurkit:blk_blurRadius="12"
-        blurkit:blk_downscaleFactor="0.12"
+            android:visibility="gone"
+            android:layout_alignParentTop="true"
+            android:id="@+id/bl_dummy_statusBar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            blurkit:blk_blurRadius="12"
+            blurkit:blk_downscaleFactor="0.12"
+    />
+    <View
+            android:visibility="gone"
+            android:layout_alignParentTop="true"
+            android:id="@+id/vw_dummy_statusBar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+    />
+    <io.alterac.blurkit.BlurLayout
+            android:visibility="gone"
+            android:id="@+id/bl_dummy_navBarPort"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentBottom="true"
+            blurkit:blk_blurRadius="12"
+            blurkit:blk_downscaleFactor="0.12"
+    />
+    <View
+            android:visibility="gone"
+            android:id="@+id/vw_dummy_navBarPort"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_alignParentBottom="true"
     />
     <io.alterac.blurkit.BlurLayout
         android:visibility="gone"
-        android:id="@+id/vw_dummy_navBarPort"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_alignParentBottom="true"
-        blurkit:blk_blurRadius="12"
-        blurkit:blk_downscaleFactor="0.12"
-        />
-    <io.alterac.blurkit.BlurLayout
-        android:visibility="gone"
-        android:id="@+id/vw_dummy_navBarLandLeft"
+        android:id="@+id/bl_dummy_navBarLandLeft"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         blurkit:blk_blurRadius="12"
         blurkit:blk_downscaleFactor="0.12"
         />
+    <View
+            android:visibility="gone"
+            android:id="@+id/vw_dummy_navBarLandLeft"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+    />
 
     <io.alterac.blurkit.BlurLayout
         android:visibility="gone"
-        android:id="@+id/vw_dummy_navBarLandRight"
+        android:id="@+id/bl_dummy_navBarLandRight"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         blurkit:blk_blurRadius="12"
         blurkit:blk_downscaleFactor="0.12"
         />
+    <View
+            android:visibility="gone"
+            android:id="@+id/vw_dummy_navBarLandRight"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+    />
 
     <View android:id="@+id/safe_area"
         android:layout_width="match_parent"
@@ -66,13 +94,21 @@
 
     <io.alterac.blurkit.BlurLayout
             android:visibility="visible"
-            android:id="@+id/vw_dummy_toolbar"
+            android:id="@+id/bl_dummy_toolbar"
             android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:background="#aa000000"
             blurkit:blk_blurRadius="12"
             blurkit:blk_downscaleFactor="0.12"
+    />
+    <View
+            android:visibility="visible"
+            android:id="@+id/vw_dummy_toolbar"
+            android:layout_alignParentTop="true"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="#aa000000"
     />
 
     <android.support.v7.widget.Toolbar
