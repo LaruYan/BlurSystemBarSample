@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.HorizontalScrollView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -571,7 +572,6 @@ public class VisibleEstatesUtil {
                 if (isNeedForRelayout) {
                     int statusBarSize = VisibleEstatesUtil.getStatusBarSize(atv,true);
 
-
                     Point navBarSize = VisibleEstatesUtil.getNavigationBarSize(atv);
                     boolean isLandscape = false;
                     if (atv.getWindowManager().getDefaultDisplay().getRotation() == Surface.ROTATION_90 ||
@@ -584,12 +584,28 @@ public class VisibleEstatesUtil {
                     //clipToPadding은 비쳐보이는 효과를 위해 false여야합니다
                     for(View listView : listViews){
                         if(isLandscape) {
+                            // 스크롤이 가로방향이면 패딩에서 잘려나가도록 한다
+                            // scrollDirectionIsVertical
                             if (listView instanceof ListView) {
-                                ((ListView) listView).setClipToPadding(scrollDirectionIsVertical);
+                                ((ListView) listView).setClipToPadding(true);
                             } else if (listView instanceof ScrollView) {
-                                ((ScrollView) listView).setClipToPadding(scrollDirectionIsVertical);
-                            } else if (listView instanceof RecyclerView){
-                                ((RecyclerView) listView).setClipToPadding(scrollDirectionIsVertical);
+                                ((ScrollView) listView).setClipToPadding(true);
+                            }else if (listView instanceof HorizontalScrollView) {
+                                ((HorizontalScrollView) listView).setClipToPadding(false);
+                            }else if (listView instanceof RecyclerView){
+                                RecyclerView recyclerView = ((RecyclerView) listView);
+
+                                //RecyclerView는 코드상에서 방향을 확인할 수 있다.
+                                RecyclerView.LayoutManager lm = recyclerView.getLayoutManager();
+                                if(lm != null){
+                                    // 스크롤 방향은 가로/세로 한 방향으로만
+                                    if(lm.canScrollVertically()){
+                                        recyclerView.setClipToPadding(true);
+                                    }else{
+                                        recyclerView.setClipToPadding(false);
+                                    }
+                                }
+
                             }
                             //Webview의 padding 구현에 문제가 있어 다른 방법으로 넣어야합니다.
 //                            else if (listView instanceof MarkdownView){
@@ -599,12 +615,30 @@ public class VisibleEstatesUtil {
 //                            }
                             listView.setPadding(0, statusBarSize+actionBarHeight, navBarSize.x, 0);
                         }else{
+                            // !scrollDirectionIsVertical
+                            // 스크롤이 세로방향이면 패딩에서 잘려나가도록 한다
                             if (listView instanceof ListView) {
-                                ((ListView) listView).setClipToPadding(!scrollDirectionIsVertical);
+                                ((ListView) listView).setClipToPadding(false);
+
                             } else if (listView instanceof ScrollView) {
-                                ((ScrollView) listView).setClipToPadding(!scrollDirectionIsVertical);
+                                ((ScrollView) listView).setClipToPadding(false);
+
+                            } else if (listView instanceof HorizontalScrollView) {
+                                ((HorizontalScrollView) listView).setClipToPadding(true);
+
                             } else if (listView instanceof RecyclerView) {
-                                ((RecyclerView) listView).setClipToPadding(!scrollDirectionIsVertical);
+                                RecyclerView recyclerView = ((RecyclerView) listView);
+                                //RecyclerView는 코드상에서 방향을 확인할 수 있다.
+                                RecyclerView.LayoutManager lm = recyclerView.getLayoutManager();
+                                if(lm != null){
+                                    // 스크롤 방향은 가로/세로 한 방향으로만
+                                    if(lm.canScrollVertically()){
+                                        recyclerView.setClipToPadding(false);
+                                    }else{
+                                        recyclerView.setClipToPadding(true);
+                                    }
+                                }
+
                             }//Webview의 padding 구현에 문제가 있어 다른 방법으로 넣어야합니다.
 //                            else if (listView instanceof MarkdownView){
 //                                ((MarkdownView) listView).setClipToPadding(!scrollDirectionIsVertical);
