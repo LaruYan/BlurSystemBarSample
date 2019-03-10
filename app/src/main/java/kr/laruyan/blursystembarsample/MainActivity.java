@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.util.TimeUtils;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -116,12 +117,13 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 while(isBlurDaemon) {
                     if(isBlurRequired) {
-                        blurWorkerUpper.updateBlurView();
+                        runOnUiThread(()->{blurWorkerUpper.updateBlurView();});
                     }
                     android.os.SystemClock.sleep(16);
                 }
             }
         });
+        threadWorker.start();
 
         // 전체화면 활용 처리
         toolbar.setOnSystemUiVisibilityChangeListener(visibility -> setFullScreenMode((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) );
@@ -141,6 +143,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         isBlurRequired = false;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        isBlurDaemon = false;
     }
 
     private void setFullScreenMode(boolean isStatusBarVisible) {
