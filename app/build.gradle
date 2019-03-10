@@ -10,7 +10,8 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        renderscriptTargetApi 20
+        renderscriptSupportModeEnabled true
     }
     buildTypes {
         release {
@@ -36,7 +37,7 @@ dependencies {
     implementation "com.android.support:support-annotations:28.0.0"
     implementation "com.android.support:design:28.0.0"
 
-    implementation 'io.alterac.blurkit:blurkit:1.1.0'
+    implementation 'at.favre.lib:dali:0.3.5'
 
     implementation "com.mikepenz:materialdrawer:6.0.9"
 }

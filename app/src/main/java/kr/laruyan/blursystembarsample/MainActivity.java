@@ -5,28 +5,41 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.TimeUtils;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ScrollView;
 
+import at.favre.lib.dali.Dali;
+import at.favre.lib.dali.builder.live.LiveBlurWorker;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
-import io.alterac.blurkit.BlurLayout;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private byte fullScreenFlags; // 전체화면 플래그를 기억할 변수
-    private BlurLayout blDummyStatusBar;
-    private BlurLayout blDummyToolBar;
-    private BlurLayout blDummyNavBarPort;
-    private BlurLayout blDummyNavBarLandLeft;
-    private BlurLayout blDummyNavBarLandRight;
+
+    private View blDummyStatusBar;
+    private View blDummyToolBar;
+    private View blDummyNavBarPort;
+    private View blDummyNavBarLandLeft;
+    private View blDummyNavBarLandRight;
+
     private View vwDummyStatusBar;
     private View vwDummyToolBar;
     private View vwDummyNavBarPort;
     private View vwDummyNavBarLandLeft;
     private View vwDummyNavBarLandRight;
 
+
+    private LiveBlurWorker blurWorkerUpper;
+    private LiveBlurWorker blurWorkerDowner;
+
+    private Thread threadWorker;
+    private boolean isBlurRequired = false;
+    private boolean isBlurDaemon = true;
 
     private Toolbar toolbar;
     private Drawer drawer;
@@ -76,6 +89,8 @@ public class MainActivity extends AppCompatActivity {
             drawer.addItem(new DividerDrawerItem());
         }
 
+
+
         // 액션바 아이콘
         toolbar.setNavigationOnClickListener((v) -> this.drawer.openDrawer());
         toolbar.getNavigationIcon().setColorFilter(ContextCompat.getColor(MainActivity.this, android.R.color.white), PorterDuff.Mode.SRC_ATOP);
@@ -92,6 +107,22 @@ public class MainActivity extends AppCompatActivity {
         vwStatusBarAffecteds = new View[] {toolbar,contentView};
         vwNavBarAffecteds =  new View[] {contentView};
 
+        // 흐림효과 처리
+        //  width / height 0인 뷰는 강제종료를 유발
+        blurWorkerUpper = Dali.create(MainActivity.this).liveBlur(null,blDummyStatusBar,blDummyToolBar,blDummyNavBarPort).downScale(2).assemble(true);
+
+        threadWorker = new Thread(new Runnable(){
+            @Override
+            public void run() {
+                while(isBlurDaemon) {
+                    if(isBlurRequired) {
+                        blurWorkerUpper.updateBlurView();
+                    }
+                    android.os.SystemClock.sleep(16);
+                }
+            }
+        });
+
         // 전체화면 활용 처리
         toolbar.setOnSystemUiVisibilityChangeListener(visibility -> setFullScreenMode((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) );
         setFullScreenMode(true);
@@ -100,31 +131,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-
-        blDummyStatusBar.startBlur();
-        blDummyToolBar.startBlur();
-        blDummyNavBarPort.startBlur();
-        blDummyNavBarLandLeft.startBlur();
-        blDummyNavBarLandRight.startBlur();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        blDummyStatusBar.pauseBlur();
-        blDummyToolBar.pauseBlur();
-        blDummyNavBarPort.pauseBlur();
-        blDummyNavBarLandLeft.pauseBlur();
-        blDummyNavBarLandRight.pauseBlur();
-    }
-
-    @Override
     protected void onResume() {
         super.onResume();
         setFullScreenMode(fullScreenFlags >= 0); //trigger last known systemuivisibility
+        isBlurRequired = true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isBlurRequired = false;
     }
 
     private void setFullScreenMode(boolean isStatusBarVisible) {

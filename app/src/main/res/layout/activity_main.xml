@@ -6,14 +6,32 @@
                 android:layout_height="match_parent"
                 tools:context="kr.laruyan.blursystembarsample.MainActivity">
 
-    <io.alterac.blurkit.BlurLayout
+    <View android:id="@+id/safe_area"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_below="@id/vw_dummy_statusBar"
+          android:layout_toRightOf="@id/vw_dummy_navBarLandLeft"
+          android:layout_toLeftOf="@id/vw_dummy_navBarLandRight"
+          android:layout_above="@id/vw_dummy_navBarPort"
+          android:background="#00FFFF"/>
+
+    <ScrollView
+            android:id="@+id/content_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                android:text="가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이"/>
+    </ScrollView>
+
+    <View
             android:visibility="gone"
             android:layout_alignParentTop="true"
             android:id="@+id/bl_dummy_statusBar"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            blurkit:blk_blurRadius="12"
-            blurkit:blk_downscaleFactor="0.12"
     />
     <View
             android:visibility="gone"
@@ -22,14 +40,12 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
     />
-    <io.alterac.blurkit.BlurLayout
+    <View
             android:visibility="gone"
             android:id="@+id/bl_dummy_navBarPort"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_alignParentBottom="true"
-            blurkit:blk_blurRadius="12"
-            blurkit:blk_downscaleFactor="0.12"
     />
     <View
             android:visibility="gone"
@@ -38,14 +54,12 @@
             android:layout_height="0dp"
             android:layout_alignParentBottom="true"
     />
-    <io.alterac.blurkit.BlurLayout
+    <View
         android:visibility="gone"
         android:id="@+id/bl_dummy_navBarLandLeft"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
-        blurkit:blk_blurRadius="12"
-        blurkit:blk_downscaleFactor="0.12"
         />
     <View
             android:visibility="gone"
@@ -55,14 +69,12 @@
             android:layout_alignParentLeft="true"
     />
 
-    <io.alterac.blurkit.BlurLayout
+    <View
         android:visibility="gone"
         android:id="@+id/bl_dummy_navBarLandRight"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-        blurkit:blk_blurRadius="12"
-        blurkit:blk_downscaleFactor="0.12"
         />
     <View
             android:visibility="gone"
@@ -72,35 +84,13 @@
             android:layout_alignParentRight="true"
     />
 
-    <View android:id="@+id/safe_area"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/vw_dummy_statusBar"
-        android:layout_toRightOf="@id/vw_dummy_navBarLandLeft"
-        android:layout_toLeftOf="@id/vw_dummy_navBarLandRight"
-        android:layout_above="@id/vw_dummy_navBarPort"
-        android:background="#00FFFF"/>
-
-    <ScrollView
-        android:id="@+id/content_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:text="가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이가나다라마바사아자차카타파하아야어여오요우유으이"/>
-    </ScrollView>
-
-    <io.alterac.blurkit.BlurLayout
+    <View
             android:visibility="visible"
             android:id="@+id/bl_dummy_toolbar"
             android:layout_alignParentTop="true"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:background="#aa000000"
-            blurkit:blk_blurRadius="12"
-            blurkit:blk_downscaleFactor="0.12"
     />
     <View
             android:visibility="visible"
