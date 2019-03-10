@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
     private byte fullScreenFlags; // 전체화면 플래그를 기억할 변수
     private View vwDummyStatusBar;
     private View vwDummyToolBar;
-    private View vwDummyToolBarBottom;
     private View vwDummyNavBarPort;
     private View vwDummyNavBarLandLeft;
     private View vwDummyNavBarLandRight;
@@ -39,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         vwDummyStatusBar = findViewById(R.id.vw_dummy_statusBar);
         vwDummyToolBar = findViewById(R.id.vw_dummy_toolbar);
-        vwDummyToolBarBottom = findViewById(R.id.vw_dummy_toolbar_bottom);
         vwDummyNavBarPort = findViewById(R.id.vw_dummy_navBarPort);
         vwDummyNavBarLandLeft = findViewById(R.id.vw_dummy_navBarLandLeft);
         vwDummyNavBarLandRight = findViewById(R.id.vw_dummy_navBarLandRight);
