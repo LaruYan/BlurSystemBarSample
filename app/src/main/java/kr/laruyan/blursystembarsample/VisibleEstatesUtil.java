@@ -569,6 +569,9 @@ public class VisibleEstatesUtil {
 
 
                 if (isNeedForRelayout) {
+                    int statusBarSize = VisibleEstatesUtil.getStatusBarSize(atv,true);
+
+
                     Point navBarSize = VisibleEstatesUtil.getNavigationBarSize(atv);
                     boolean isLandscape = false;
                     if (atv.getWindowManager().getDefaultDisplay().getRotation() == Surface.ROTATION_90 ||
@@ -594,7 +597,7 @@ public class VisibleEstatesUtil {
 //                            } else if (listView instanceof WebView) {
 //                                ((WebView) listView).setClipToPadding(scrollDirectionIsVertical);
 //                            }
-                            listView.setPadding(0, 0, navBarSize.x, 0);
+                            listView.setPadding(0, statusBarSize, navBarSize.x, 0);
                         }else{
                             if (listView instanceof ListView) {
                                 ((ListView) listView).setClipToPadding(!scrollDirectionIsVertical);
@@ -608,7 +611,7 @@ public class VisibleEstatesUtil {
 //                            } else if (listView instanceof WebView) {
 //                                ((WebView) listView).setClipToPadding(!scrollDirectionIsVertical);
 //                            }
-                            listView.setPadding(0, 0, 0, navBarSize.y);
+                            listView.setPadding(0, statusBarSize, 0, navBarSize.y);
                         }
                     }
                 }
