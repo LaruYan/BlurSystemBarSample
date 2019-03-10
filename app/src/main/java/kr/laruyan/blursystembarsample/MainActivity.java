@@ -83,6 +83,12 @@ public class MainActivity extends AppCompatActivity {
         toolbar.setTitle(R.string.app_name);
         toolbar.setTitleTextColor(ContextCompat.getColor(MainActivity.this, android.R.color.white));
 
+        vwDummyStatusBars = new View[] {blDummyStatusBar,vwDummyStatusBar};
+        vwDummyToolBars = new View[] {blDummyToolBar,vwDummyToolBar};
+        vwDummyNavBarPorts = new View[] {blDummyNavBarPort,vwDummyNavBarPort};
+        vwDummyNavBarLandLefts = new View[] {blDummyNavBarLandLeft,vwDummyNavBarLandLeft};
+        vwDummyNavBarLandRights = new View[] {blDummyNavBarLandRight,vwDummyNavBarLandRight};
+
         vwStatusBarAffecteds = new View[] {toolbar,contentView};
         vwNavBarAffecteds =  new View[] {contentView};
 
@@ -127,11 +133,11 @@ public class MainActivity extends AppCompatActivity {
                 isStatusBarVisible,
                 drawer,
                 toolbar.getHeight(),
-                vwDummyToolBar,
+                vwDummyToolBars,
                 null,
-                vwDummyStatusBar,
-                vwDummyNavBarPort,
-                vwDummyNavBarLandRight,
+                vwDummyStatusBars,
+                vwDummyNavBarPorts,
+                vwDummyNavBarLandRights,
                 true,
                 null,
                 null));

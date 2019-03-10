@@ -147,11 +147,11 @@ public class VisibleEstatesUtil {
     }
 
 
-    public static byte setFullScreenMode(Activity atv, boolean isSystemUiVisible, Drawer drawer, int toolbarHeight, View vwMainToolBarDummy,  View[] vwStatusBarAffecteds, View[] vwNavBarAffecteds) {
+    public static byte setFullScreenMode(Activity atv, boolean isSystemUiVisible, Drawer drawer, int toolbarHeight, View[] vwMainToolBarDummy,  View[] vwStatusBarAffecteds, View[] vwNavBarAffecteds) {
         return setFullScreenMode(atv, isSystemUiVisible, drawer,toolbarHeight, vwMainToolBarDummy, null, null, null, null, false, vwStatusBarAffecteds, vwNavBarAffecteds);
     }
 
-    public static byte setFullScreenMode(Activity atv, boolean isSystemUiVisible, Drawer drawer, int toolbarHeight, View vwMainToolBarDummy, boolean noLimits, View[] vwStatusBarAffecteds, View[] vwNavBarAffecteds) {
+    public static byte setFullScreenMode(Activity atv, boolean isSystemUiVisible, Drawer drawer, int toolbarHeight, View[]vwMainToolBarDummy, boolean noLimits, View[] vwStatusBarAffecteds, View[] vwNavBarAffecteds) {
         return setFullScreenMode(atv, isSystemUiVisible, drawer,toolbarHeight, vwMainToolBarDummy, null, null, null, null, noLimits, vwStatusBarAffecteds, vwNavBarAffecteds);
     }
 
@@ -161,17 +161,17 @@ public class VisibleEstatesUtil {
      * @param isSystemUiVisible SYSTEMUI 표시여부
      * @param drawer 드로어 (선택사항)
      * @param toolbarHeight 액션바 크기 (선택사항, 없으면 안드로이드 리소스에서 찾습니다.)
-     * @param vwToolbarDummy 툴바 더미 (선택사항)
-     * @param vwMainToolbarBottomDummy 툴바 더미 (선택사항)
-     * @param vwStatusBarDummy 알림막대 더미 (선택사항, 단 noLimits가 true일 때 필수)
-     * @param vwNavBarPortDummy 소프트키 세로 더미 (noLimits가 true일 때 필수)
-     * @param vwNavBarLandDummy 소프트키 가로 더미 (noLimits가 true일 때 필수)
+     * @param vwToolbarDummies 툴바 더미 (선택사항)
+     * @param vwMainToolbarBottomDummies 툴바 더미 (선택사항)
+     * @param vwStatusBarDummies 알림막대 더미 (선택사항, 단 noLimits가 true일 때 필수)
+     * @param vwNavBarPortDummies 소프트키 세로 더미 (noLimits가 true일 때 필수)
+     * @param vwNavBarLandDummies 소프트키 가로 더미 (noLimits가 true일 때 필수)
      * @param noLimits true이면 알림막대와 소프트키를 직접 그립니다.
      * @param vwStatusBarAffecteds 알림막대 여백만큼 이동시킬 View들 (선택사항)
      * @param vwNavBarAffecteds 소프트키 여백만큼 이동시킬 View들
      * @return 현재 SYSTEMUI 요소 표시에 대한 플래그 (일반, 알림막대, 소프트키, 알림막대+소프트키)
      */
-    public static byte setFullScreenMode(Activity atv, boolean isSystemUiVisible, Drawer drawer, int toolbarHeight, View vwToolbarDummy, View vwMainToolbarBottomDummy, View vwStatusBarDummy, View vwNavBarPortDummy, View vwNavBarLandDummy, boolean noLimits, View[] vwStatusBarAffecteds, View[] vwNavBarAffecteds) {
+    public static byte setFullScreenMode(Activity atv, boolean isSystemUiVisible, Drawer drawer, int toolbarHeight, View[] vwToolbarDummies, View[] vwMainToolbarBottomDummies, View[] vwStatusBarDummies, View[] vwNavBarPortDummies, View[] vwNavBarLandDummies, boolean noLimits, View[] vwStatusBarAffecteds, View[] vwNavBarAffecteds) {
         byte rememberResetStatus = FLAG_RESTORE_NOTHING;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if(atv == null){
@@ -230,15 +230,14 @@ public class VisibleEstatesUtil {
 
             logDebug("setFullScreenMode() :: isStatusBarThinerThanToolbarHeight: " + isStatusBarThinerThanToolbarHeight);
 
-            ViewGroup.MarginLayoutParams rlpTlbDummy = null;
-            if (vwToolbarDummy != null) {
-                rlpTlbDummy = (ViewGroup.MarginLayoutParams) vwToolbarDummy.getLayoutParams();
+            ViewGroup.MarginLayoutParams[] rlpTlbDummies = new ViewGroup.MarginLayoutParams[(vwToolbarDummies != null) ? vwToolbarDummies.length : 0];
+            for (int cur = 0; cur < rlpTlbDummies.length; cur++) {
+                rlpTlbDummies[cur] = (ViewGroup.MarginLayoutParams) vwToolbarDummies[cur].getLayoutParams();
             }
-            ViewGroup.MarginLayoutParams rlpVwBottomDummy = null;
-            if (vwMainToolbarBottomDummy != null) {
-                rlpVwBottomDummy = (ViewGroup.MarginLayoutParams) vwMainToolbarBottomDummy.getLayoutParams();
+            ViewGroup.MarginLayoutParams[] rlpVwBottomDummies = new ViewGroup.MarginLayoutParams[(vwMainToolbarBottomDummies != null) ? vwMainToolbarBottomDummies.length : 0];
+            for (int cur = 0; cur < rlpVwBottomDummies.length; cur++) {
+                rlpVwBottomDummies[cur] = (ViewGroup.MarginLayoutParams) vwMainToolbarBottomDummies[cur].getLayoutParams();
             }
-
 
             ViewGroup.MarginLayoutParams[] rlpNavBarAffecteds = new ViewGroup.MarginLayoutParams[(vwNavBarAffecteds != null) ? vwNavBarAffecteds.length : 0];
             for (int cur = 0; cur < rlpNavBarAffecteds.length; cur++) {
@@ -279,10 +278,10 @@ public class VisibleEstatesUtil {
 
                 if (isSystemUiVisible && !isInMultiWindowMode) {
                     logDebug("setFullScreenMode() :: true for isSystemUiVisible && !isInMultiWindowMode");
-                    if (rlpTlbDummy != null) {
+                    for (ViewGroup.MarginLayoutParams rlpTlbDummy : rlpTlbDummies) {
                         rlpTlbDummy.rightMargin = navBarWidth;
                     }
-                    if (rlpVwBottomDummy != null) {
+                    for (ViewGroup.MarginLayoutParams rlpVwBottomDummy : rlpVwBottomDummies) {
                         rlpVwBottomDummy.rightMargin = navBarWidth;
                     }
                     for (ViewGroup.MarginLayoutParams rlpNavBarAffected : rlpNavBarAffecteds) {
@@ -290,10 +289,10 @@ public class VisibleEstatesUtil {
                     }
                 } else {
                     logDebug("setFullScreenMode() :: false for isSystemUiVisible && !isInMultiWindowMode");
-                    if (rlpTlbDummy != null) {
+                    for (ViewGroup.MarginLayoutParams rlpTlbDummy : rlpTlbDummies) {
                         rlpTlbDummy.rightMargin = 0;
                     }
-                    if (rlpVwBottomDummy != null) {
+                    for (ViewGroup.MarginLayoutParams rlpVwBottomDummy : rlpVwBottomDummies) {
                         rlpVwBottomDummy.rightMargin = 0;
                     }
                     for (ViewGroup.MarginLayoutParams rlpNavBarAffected : rlpNavBarAffecteds) {
@@ -318,10 +317,10 @@ public class VisibleEstatesUtil {
                 }
                 logDebug("setFullScreenMode() :: navBarHeight: " + navBarHeight);
 
-                if (rlpTlbDummy != null) {
+                for (ViewGroup.MarginLayoutParams rlpTlbDummy : rlpTlbDummies) {
                     rlpTlbDummy.rightMargin = 0;
                 }
-                if (rlpVwBottomDummy != null) {
+                for (ViewGroup.MarginLayoutParams rlpVwBottomDummy : rlpVwBottomDummies) {
                     rlpVwBottomDummy.rightMargin = 0;
                 }
                 for (ViewGroup.MarginLayoutParams rlpNavBarAffected : rlpNavBarAffecteds) {
@@ -372,11 +371,11 @@ public class VisibleEstatesUtil {
                 logDebug("setFullScreenMode() :: navBarWidth == navBarHeight");
 
                 // 모두 0일 때
-                if (rlpTlbDummy != null) {
-                    rlpTlbDummy.rightMargin = 0;
+                for (ViewGroup.MarginLayoutParams rlpTlbDummy : rlpTlbDummies) {
+                    rlpTlbDummy.bottomMargin = 0;
                 }
-                if (rlpVwBottomDummy != null) {
-                    rlpVwBottomDummy.rightMargin = 0;
+                for (ViewGroup.MarginLayoutParams rlpVwBottomDummy : rlpVwBottomDummies) {
+                    rlpVwBottomDummy.bottomMargin = 0;
                 }
                 for (ViewGroup.MarginLayoutParams rlpNavBarAffected : rlpNavBarAffecteds) {
                     rlpNavBarAffected.bottomMargin = 0;
@@ -399,33 +398,32 @@ public class VisibleEstatesUtil {
             }
 
             if (isSystemUiVisible && !isInMultiWindowMode) {
-                if (rlpTlbDummy != null) {
+                for (ViewGroup.MarginLayoutParams rlpTlbDummy : rlpTlbDummies) {
                     rlpTlbDummy.topMargin = statusBarHeight;
                 }
-                if (rlpVwBottomDummy != null) {
-                    rlpVwBottomDummy.bottomMargin = statusBarHeight;
+                for (ViewGroup.MarginLayoutParams rlpVwBottomDummy : rlpVwBottomDummies) {
+                    rlpVwBottomDummy.topMargin = statusBarHeight;
                 }
                 for (ViewGroup.MarginLayoutParams rlpStatusBarAffected : rlpStatusBarAffecteds) {
                     rlpStatusBarAffected.topMargin = statusBarHeight;
                 }
             } else {
-                if (rlpTlbDummy != null) {
+                for (ViewGroup.MarginLayoutParams rlpTlbDummy : rlpTlbDummies) {
                     rlpTlbDummy.topMargin = 0;
                 }
-                if (rlpVwBottomDummy != null) {
-                    rlpVwBottomDummy.bottomMargin = 0;
+                for (ViewGroup.MarginLayoutParams rlpVwBottomDummy : rlpVwBottomDummies) {
+                    rlpVwBottomDummy.topMargin = 0;
                 }
-
                 for (ViewGroup.MarginLayoutParams rlpStatusBarAffected : rlpStatusBarAffecteds) {
                     rlpStatusBarAffected.topMargin = 0;
                 }
             }
 
-            if (vwToolbarDummy != null) {
-                vwToolbarDummy.setLayoutParams(rlpTlbDummy);
+            for (int cur = 0; cur < rlpTlbDummies.length; cur++) {
+                vwToolbarDummies[cur].setLayoutParams(rlpTlbDummies[cur]);
             }
-            if (vwMainToolbarBottomDummy != null) {
-                vwMainToolbarBottomDummy.setLayoutParams(rlpVwBottomDummy);
+            for (int cur = 0; cur < rlpVwBottomDummies.length; cur++) {
+                vwMainToolbarBottomDummies[cur].setLayoutParams(rlpVwBottomDummies[cur]);
             }
 
             for (int cur = 0; cur < rlpStatusBarAffecteds.length; cur++) {
@@ -458,7 +456,7 @@ public class VisibleEstatesUtil {
                     window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN, WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN);
 
 
-                    if(vwStatusBarDummy != null) {
+                    if(vwStatusBarDummies != null) {
                         logDebug("setFullScreenMode() :: vwStatusBarDummy is not null");
                         int statusbarVisibility = View.GONE;
                         if (!isInMultiWindowMode) {
@@ -467,16 +465,20 @@ public class VisibleEstatesUtil {
                             //알림막대부를 새로 그립니다.
 //                            vwStatusBarDummy.setBackgroundColor(statusBarColor);
                             if(statusBarHeight > 0) {
-                                ViewGroup.MarginLayoutParams statusBarLP = (ViewGroup.MarginLayoutParams) vwStatusBarDummy.getLayoutParams();
-                                statusBarLP.height = statusBarHeight;
-                                vwStatusBarDummy.setLayoutParams(statusBarLP);
+                                for (int cur = 0; cur < vwStatusBarDummies.length; cur++) {
+                                    ViewGroup.MarginLayoutParams statusBarLP = (ViewGroup.MarginLayoutParams) vwStatusBarDummies[cur].getLayoutParams();
+                                    statusBarLP.height = statusBarHeight;
+                                    vwStatusBarDummies[cur].setLayoutParams(statusBarLP);
+                                }
                             }
                             statusbarVisibility = View.VISIBLE;
                         }
-                        vwStatusBarDummy.setVisibility(statusbarVisibility);
+                        for (int cur = 0; cur < vwStatusBarDummies.length; cur++) {
+                            vwStatusBarDummies[cur].setVisibility(statusbarVisibility);
+                        }
                     }
 
-                    if(vwNavBarPortDummy != null && vwNavBarLandDummy != null) {
+                    if(vwNavBarPortDummies != null && vwNavBarLandDummies != null) {
                         logDebug("setFullScreenMode() :: vwNavBarDummies are not null");
                         //소프트키부를 새로 그립니다. 단 처음 실행 시 정상적으로 읽어오므로 이 값을 이용해 visibility 만 변경합니다.
                         int navbarPortVisibility = View.GONE;
@@ -493,9 +495,11 @@ public class VisibleEstatesUtil {
 //                                vwNavBarLandDummy.setBackgroundColor(navBarColor);
                                 if(navBarWidth > 0)
                                 {
-                                    ViewGroup.MarginLayoutParams navBarLandLP = (ViewGroup.MarginLayoutParams) vwNavBarLandDummy.getLayoutParams();
-                                    navBarLandLP.width = navBarWidth;
-                                    vwNavBarLandDummy.setLayoutParams(navBarLandLP);
+                                    for (int cur = 0; cur < vwNavBarLandDummies.length; cur++) {
+                                        ViewGroup.MarginLayoutParams navBarLandLP = (ViewGroup.MarginLayoutParams) vwNavBarLandDummies[cur].getLayoutParams();
+                                        navBarLandLP.width = navBarWidth;
+                                        vwNavBarLandDummies[cur].setLayoutParams(navBarLandLP);
+                                    }
                                 }
 
                                 navbarLandVisibility = View.VISIBLE;
@@ -510,18 +514,23 @@ public class VisibleEstatesUtil {
 //                                vwNavBarPortDummy.setBackgroundColor(navBarColor);
                                 if(navBarHeight > 0)
                                 {
-                                    ViewGroup.MarginLayoutParams navBarPortLP = (ViewGroup.MarginLayoutParams) vwNavBarPortDummy.getLayoutParams();
-                                    navBarPortLP.height = navBarHeight;
-                                    vwNavBarPortDummy.setLayoutParams(navBarPortLP);
+                                    for (int cur = 0; cur < vwNavBarPortDummies.length; cur++) {
+                                        ViewGroup.MarginLayoutParams navBarPortLP = (ViewGroup.MarginLayoutParams) vwNavBarPortDummies[cur].getLayoutParams();
+                                        navBarPortLP.height = navBarHeight;
+                                        vwNavBarPortDummies[cur].setLayoutParams(navBarPortLP);
+                                    }
                                 }
 
                                 navbarPortVisibility = View.VISIBLE;
                             }
                         }
                         // navBarWidth와 navBarHeight가 모두 0인 경우에는 isNavBarThinerThanToolBarHeight가 false로 고정이되기 때문에 조건 처리 필요 없음
-
-                        vwNavBarPortDummy.setVisibility(navbarPortVisibility);
-                        vwNavBarLandDummy.setVisibility(navbarLandVisibility);
+                        for (int cur = 0; cur < vwNavBarPortDummies.length; cur++) {
+                            vwNavBarPortDummies[cur].setVisibility(navbarPortVisibility);
+                        }
+                        for (int cur = 0; cur < vwNavBarLandDummies.length; cur++) {
+                            vwNavBarLandDummies[cur].setVisibility(navbarLandVisibility);
+                        }
                     }
 
                     window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -531,15 +540,21 @@ public class VisibleEstatesUtil {
             {
                 if(noLimits) {
                     // 알림막대 부를 숨기게 합니다.
-                    if (vwStatusBarDummy != null) {
-                        vwStatusBarDummy.setVisibility(View.GONE);
+                    if (vwStatusBarDummies != null) {
+                        for (int cur = 0; cur < vwStatusBarDummies.length; cur++) {
+                            vwStatusBarDummies[cur].setVisibility(View.GONE);
+                        }
                     }
                     //소프트키 부를 숨기게 합니다.
-                    if (vwNavBarPortDummy != null) {
-                        vwNavBarPortDummy.setVisibility(View.GONE);
+                    if (vwNavBarPortDummies != null) {
+                        for (int cur = 0; cur < vwNavBarPortDummies.length; cur++) {
+                            vwNavBarPortDummies[cur].setVisibility(View.GONE);
+                        }
                     }
-                    if (vwNavBarLandDummy != null) {
-                        vwNavBarLandDummy.setVisibility(View.GONE);
+                    if (vwNavBarLandDummies != null) {
+                        for (int cur = 0; cur < vwNavBarLandDummies.length; cur++) {
+                            vwNavBarLandDummies[cur].setVisibility(View.GONE);
+                        }
                     }
                 }
             }
