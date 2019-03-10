@@ -1,42 +1,37 @@
 package kr.laruyan.blursystembarsample;
 
 import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.util.TimeUtils;
 import android.view.View;
-import android.view.ViewTreeObserver;
+import android.view.ViewGroup;
 import android.widget.ScrollView;
 
-import at.favre.lib.dali.Dali;
-import at.favre.lib.dali.builder.live.LiveBlurWorker;
+import com.eightbitlab.supportrenderscriptblur.SupportRenderScriptBlur;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 import com.mikepenz.materialdrawer.model.DividerDrawerItem;
+import eightbitlab.com.blurview.BlurView;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private byte fullScreenFlags; // 전체화면 플래그를 기억할 변수
 
-    private View blDummyStatusBar;
-    private View blDummyToolBar;
-    private View blDummyNavBarPort;
-    private View blDummyNavBarLandLeft;
-    private View blDummyNavBarLandRight;
+    private BlurView blDummyStatusBar;
+    private BlurView blDummyToolBar;
+    private BlurView blDummyNavBarPort;
+    private BlurView blDummyNavBarLandLeft;
+    private BlurView blDummyNavBarLandRight;
 
     private View vwDummyStatusBar;
     private View vwDummyToolBar;
     private View vwDummyNavBarPort;
     private View vwDummyNavBarLandLeft;
     private View vwDummyNavBarLandRight;
-
-
-    private LiveBlurWorker blurWorkerUpper;
-    private LiveBlurWorker blurWorkerDowner;
 
     private Thread threadWorker;
     private boolean isBlurRequired = false;
@@ -109,30 +104,41 @@ public class MainActivity extends AppCompatActivity {
         vwNavBarAffecteds =  new View[] {contentView};
 
         // 흐림효과 처리
-        //  width / height 0인 뷰는 강제종료를 유발
-        blurWorkerUpper = Dali.create(MainActivity.this).liveBlur(contentView,blDummyStatusBar,blDummyToolBar).downScale(8).assemble(true);
-        blurWorkerDowner = Dali.create(MainActivity.this).liveBlur(contentView,blDummyNavBarPort).downScale(8).assemble(true);
+        //https://github.com/Dimezis/BlurView
+        float radius = 20f;
+        View decorView = getWindow().getDecorView();
+        //ViewGroup you want to start blur from. Choose root as close to BlurView in hierarchy as possible.
+        ViewGroup rootView = (ViewGroup) decorView.findViewById(android.R.id.content);
+        //Set drawable to draw in the beginning of each blurred frame (Optional).
+        //Can be used in case your layout has a lot of transparent space and your content
+        //gets kinda lost after after blur is applied.
+        Drawable windowBackground = decorView.getBackground();
 
-        contentView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                blurWorkerUpper.updateBlurView();
-                blurWorkerDowner.updateBlurView();
-
-            }
-        });
-//        threadWorker = new Thread(new Runnable(){
-//            @Override
-//            public void run() {
-//                while(isBlurDaemon) {
-//                    if(isBlurRequired) {
-//                        runOnUiThread(()->{blurWorkerUpper.updateBlurView();});
-//                    }
-//                    android.os.SystemClock.sleep(16);
-//                }
-//            }
-//        });
-//        threadWorker.start();
+        blDummyStatusBar.setupWith(rootView)
+                .setFrameClearDrawable(windowBackground)
+                .setBlurAlgorithm(new SupportRenderScriptBlur(this))
+                .setBlurRadius(radius)
+                .setHasFixedTransformationMatrix(true);
+        blDummyToolBar.setupWith(rootView)
+                .setFrameClearDrawable(windowBackground)
+                .setBlurAlgorithm(new SupportRenderScriptBlur(this))
+                .setBlurRadius(radius)
+                .setHasFixedTransformationMatrix(true);
+        blDummyNavBarPort.setupWith(rootView)
+                .setFrameClearDrawable(windowBackground)
+                .setBlurAlgorithm(new SupportRenderScriptBlur(this))
+                .setBlurRadius(radius)
+                .setHasFixedTransformationMatrix(true);
+        blDummyNavBarLandLeft.setupWith(rootView)
+                .setFrameClearDrawable(windowBackground)
+                .setBlurAlgorithm(new SupportRenderScriptBlur(this))
+                .setBlurRadius(radius)
+                .setHasFixedTransformationMatrix(true);
+        blDummyNavBarLandRight.setupWith(rootView)
+                .setFrameClearDrawable(windowBackground)
+                .setBlurAlgorithm(new SupportRenderScriptBlur(this))
+                .setBlurRadius(radius)
+                .setHasFixedTransformationMatrix(true);
 
         // 전체화면 활용 처리
         toolbar.setOnSystemUiVisibilityChangeListener(visibility -> setFullScreenMode((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) );
