@@ -112,10 +112,8 @@ public class MainActivity extends AppCompatActivity {
                 vwDummyToolBar,
                 null,
                 vwDummyStatusBar,
-                ContextCompat.getColor(MainActivity.this, R.color.colorPrimary),
                 vwDummyNavBarPort,
                 vwDummyNavBarLandRight,
-                ContextCompat.getColor(MainActivity.this, R.color.colorPrimary),
                 true,
                 null,
                 null));

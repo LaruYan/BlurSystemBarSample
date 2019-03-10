@@ -148,11 +148,11 @@ public class VisibleEstatesUtil {
 
 
     public static byte setFullScreenMode(Activity atv, boolean isSystemUiVisible, Drawer drawer, int toolbarHeight, View vwMainToolBarDummy,  View[] vwStatusBarAffecteds, View[] vwNavBarAffecteds) {
-        return setFullScreenMode(atv, isSystemUiVisible, drawer,toolbarHeight, vwMainToolBarDummy, null, null, 0x00FFFFFF, null, null, 0x00FFFFFF, false, vwStatusBarAffecteds, vwNavBarAffecteds);
+        return setFullScreenMode(atv, isSystemUiVisible, drawer,toolbarHeight, vwMainToolBarDummy, null, null, null, null, false, vwStatusBarAffecteds, vwNavBarAffecteds);
     }
 
     public static byte setFullScreenMode(Activity atv, boolean isSystemUiVisible, Drawer drawer, int toolbarHeight, View vwMainToolBarDummy, boolean noLimits, View[] vwStatusBarAffecteds, View[] vwNavBarAffecteds) {
-        return setFullScreenMode(atv, isSystemUiVisible, drawer,toolbarHeight, vwMainToolBarDummy, null, null, 0x00FFFFFF, null, null, 0x00FFFFFF, noLimits, vwStatusBarAffecteds, vwNavBarAffecteds);
+        return setFullScreenMode(atv, isSystemUiVisible, drawer,toolbarHeight, vwMainToolBarDummy, null, null, null, null, noLimits, vwStatusBarAffecteds, vwNavBarAffecteds);
     }
 
     /**
@@ -164,16 +164,14 @@ public class VisibleEstatesUtil {
      * @param vwToolbarDummy 툴바 더미 (선택사항)
      * @param vwMainToolbarBottomDummy 툴바 더미 (선택사항)
      * @param vwStatusBarDummy 알림막대 더미 (선택사항, 단 noLimits가 true일 때 필수)
-     * @param statusBarColor 알림막대 색상 (선택사항, 단 noLimits가 true일 때 필수)
      * @param vwNavBarPortDummy 소프트키 세로 더미 (noLimits가 true일 때 필수)
      * @param vwNavBarLandDummy 소프트키 가로 더미 (noLimits가 true일 때 필수)
-     * @param navBarColor 소프트키 색상 (noLimits가 true일 때 필수)
      * @param noLimits true이면 알림막대와 소프트키를 직접 그립니다.
      * @param vwStatusBarAffecteds 알림막대 여백만큼 이동시킬 View들 (선택사항)
      * @param vwNavBarAffecteds 소프트키 여백만큼 이동시킬 View들
      * @return 현재 SYSTEMUI 요소 표시에 대한 플래그 (일반, 알림막대, 소프트키, 알림막대+소프트키)
      */
-    public static byte setFullScreenMode(Activity atv, boolean isSystemUiVisible, Drawer drawer, int toolbarHeight, View vwToolbarDummy, View vwMainToolbarBottomDummy, View vwStatusBarDummy, int statusBarColor, View vwNavBarPortDummy, View vwNavBarLandDummy, int navBarColor, boolean noLimits, View[] vwStatusBarAffecteds, View[] vwNavBarAffecteds) {
+    public static byte setFullScreenMode(Activity atv, boolean isSystemUiVisible, Drawer drawer, int toolbarHeight, View vwToolbarDummy, View vwMainToolbarBottomDummy, View vwStatusBarDummy, View vwNavBarPortDummy, View vwNavBarLandDummy, boolean noLimits, View[] vwStatusBarAffecteds, View[] vwNavBarAffecteds) {
         byte rememberResetStatus = FLAG_RESTORE_NOTHING;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if(atv == null){
@@ -467,7 +465,7 @@ public class VisibleEstatesUtil {
                             //멀티윈도우에 놓이지 않은 경우
                             logDebug("setFullScreenMode() :: false for isInMultiWindowMode");
                             //알림막대부를 새로 그립니다.
-                            vwStatusBarDummy.setBackgroundColor(statusBarColor);
+//                            vwStatusBarDummy.setBackgroundColor(statusBarColor);
                             if(statusBarHeight > 0) {
                                 ViewGroup.MarginLayoutParams statusBarLP = (ViewGroup.MarginLayoutParams) vwStatusBarDummy.getLayoutParams();
                                 statusBarLP.height = statusBarHeight;
@@ -492,7 +490,7 @@ public class VisibleEstatesUtil {
                                 logDebug("setFullScreenMode() :: false for isInMultiWindowMode");
 
 
-                                vwNavBarLandDummy.setBackgroundColor(navBarColor);
+//                                vwNavBarLandDummy.setBackgroundColor(navBarColor);
                                 if(navBarWidth > 0)
                                 {
                                     ViewGroup.MarginLayoutParams navBarLandLP = (ViewGroup.MarginLayoutParams) vwNavBarLandDummy.getLayoutParams();
@@ -509,7 +507,7 @@ public class VisibleEstatesUtil {
                                 logDebug("setFullScreenMode() :: false for isInMultiWindowMode");
 
 
-                                vwNavBarPortDummy.setBackgroundColor(navBarColor);
+//                                vwNavBarPortDummy.setBackgroundColor(navBarColor);
                                 if(navBarHeight > 0)
                                 {
                                     ViewGroup.MarginLayoutParams navBarPortLP = (ViewGroup.MarginLayoutParams) vwNavBarPortDummy.getLayoutParams();
