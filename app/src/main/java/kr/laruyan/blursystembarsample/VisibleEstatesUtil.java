@@ -50,10 +50,56 @@ public class VisibleEstatesUtil {
         }
     }
 
-    public static int getStatusBarSize(Activity atv){
+    public static int getStatusBarSize(Activity atv, boolean isSystemUiVisible){
         Rect rect =  new Rect();
         atv.getWindow().getDecorView().getWindowVisibleDisplayFrame(rect);
-        return rect.top;
+        return getStatusBarSize(rect,atv,isSystemUiVisible);
+    }
+
+    public static int getStatusBarSize(Rect decorViewDisplayFrame, Activity atv, boolean isSystemUiVisible){
+        int statusBarHeight = decorViewDisplayFrame.top;
+        if (statusBarHeight <= 0) {
+            logDebug("getStatusBarSize() :: statusBarHeight <= 0, status bar height not retrieved.");
+            if (isSystemUiVisible) {
+                logDebug("getStatusBarSize() :: isSystemUiVisible: true, should retrieve status bar height.");
+                int resourceId = atv.getResources().getIdentifier("status_bar_height", "dimen", "android");
+                if (resourceId != 0) {
+                    logDebug("getStatusBarSize() :: resourceId: 0x" + Integer.toHexString(resourceId) + " found as android.R.dimen.status_bar_height");
+                    statusBarHeight = atv.getResources().getDimensionPixelSize(resourceId);
+                }
+            }
+//                // 예전 방식 활용. Immersive모드에 강제적으로 진입한 경우 작동보장 안됨
+//                if ((systemUiVisibility & View.SYSTEM_UI_FLAG_IMMERSIVE) > 0 ||
+//                        (systemUiVisibility & View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY) > 0) {
+//                    //do nothing
+//                } else {
+//                    int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
+//                    if (resourceId != 0) {
+//                        statusBarHeight = resources.getDimensionPixelSize(resourceId);
+//                    }
+//                }
+
+            //https://developer.android.com/intl/ko/training/system-ui/visibility.html
+            // Note that system bars will only be "visible" if none of the
+            // LOW_PROFILE, HIDE_NAVIGATION, or FULLSCREEN flags are set.
+            //if ((systemUiVisibility & View.SYSTEM_UI_FLAG_LOW_PROFILE) != 0 && (systemUiVisibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) != 0 && (systemUiVisibility & View.SYSTEM_UI_FLAG_FULLSCREEN) != 0) {
+//                if ((systemUiVisibility & View.SYSTEM_UI_FLAG_LAYOUT_STABLE) != 0 && (systemUiVisibility & View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION) != 0 && (systemUiVisibility & View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN) != 0) {
+//                    // The system bars are visible. Make any desired
+//                    // adjustments to your UI, such as showing the action bar or
+//                    // other navigational controls.
+//                    int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
+//                    if (resourceId != 0) {
+//                        statusBarHeight = resources.getDimensionPixelSize(resourceId);
+//                    }
+//                } else {
+//                    // The system bars are NOT visible. Make any desired
+//                    // adjustments to your UI, such as hiding the action bar or
+//                    // other navigational controls.
+//                }
+        }
+        logDebug("getStatusBarSize() :: statusBarHeight: " + statusBarHeight);
+
+        return statusBarHeight;
     }
 
     //http://stackoverflow.com/a/29609679
@@ -160,47 +206,8 @@ public class VisibleEstatesUtil {
 //            int systemUiVisibility = decorView.getSystemUiVisibility();
 //            System.out.println("SYSTEM_UI_FLAG: " + systemUiVisibility + "(" + Integer.toHexString(systemUiVisibility) + ")");
 
-            int statusBarHeight = rect.top;
-            if (statusBarHeight <= 0) {
-                logDebug("setFullScreenMode() :: statusBarHeight <= 0, status bar height not retrieved.");
-                if (isSystemUiVisible) {
-                    logDebug("setFullScreenMode() :: isSystemUiVisible: true, should retrieve status bar height.");
-                    int resourceId = atv.getResources().getIdentifier("status_bar_height", "dimen", "android");
-                    if (resourceId != 0) {
-                        logDebug("setFullScreenMode() :: resourceId: 0x" + Integer.toHexString(resourceId) + " found as android.R.dimen.status_bar_height");
-                        statusBarHeight = atv.getResources().getDimensionPixelSize(resourceId);
-                    }
-                }
-//                // 예전 방식 활용. Immersive모드에 강제적으로 진입한 경우 작동보장 안됨
-//                if ((systemUiVisibility & View.SYSTEM_UI_FLAG_IMMERSIVE) > 0 ||
-//                        (systemUiVisibility & View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY) > 0) {
-//                    //do nothing
-//                } else {
-//                    int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
-//                    if (resourceId != 0) {
-//                        statusBarHeight = resources.getDimensionPixelSize(resourceId);
-//                    }
-//                }
 
-                //https://developer.android.com/intl/ko/training/system-ui/visibility.html
-                // Note that system bars will only be "visible" if none of the
-                // LOW_PROFILE, HIDE_NAVIGATION, or FULLSCREEN flags are set.
-                //if ((systemUiVisibility & View.SYSTEM_UI_FLAG_LOW_PROFILE) != 0 && (systemUiVisibility & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) != 0 && (systemUiVisibility & View.SYSTEM_UI_FLAG_FULLSCREEN) != 0) {
-//                if ((systemUiVisibility & View.SYSTEM_UI_FLAG_LAYOUT_STABLE) != 0 && (systemUiVisibility & View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION) != 0 && (systemUiVisibility & View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN) != 0) {
-//                    // The system bars are visible. Make any desired
-//                    // adjustments to your UI, such as showing the action bar or
-//                    // other navigational controls.
-//                    int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
-//                    if (resourceId != 0) {
-//                        statusBarHeight = resources.getDimensionPixelSize(resourceId);
-//                    }
-//                } else {
-//                    // The system bars are NOT visible. Make any desired
-//                    // adjustments to your UI, such as hiding the action bar or
-//                    // other navigational controls.
-//                }
-            }
-            logDebug("setFullScreenMode() :: statusBarHeight: " + statusBarHeight);
+            int statusBarHeight  = getStatusBarSize(rect, atv, isSystemUiVisible);
 
             // 멀티윈도우 지원을 생각한다면 액션바만큼의 최소크기를 기준으로 생각하면 되겠습니다
             // 액션바 크기보다 크면 측정은 무시합니다.
